@@ -4,7 +4,7 @@ export interface ISlidesContext {
     markdown: string;
     blob: Blob;
     
-    getConvertedFile(): void;
+    getConvertedFile(): Promise<void>;
   
     setMarkdown: React.Dispatch<React.SetStateAction<string>>;
     isSlideLoaded: boolean;

@@ -34,9 +34,9 @@ export const SlidesProvider: React.FC = (props) => {
 
   function getConvertedFile() {
     const file = new File([blob], "slide.md");
-
-    axios
-      .post("http://localhost:3002/api/convert-file", file, {
+    let API_URL = '';
+    return axios
+      .post(`${process.env.API_URL}/convert-file`, file, {
         headers: { "Content-Type": "multipart/form-data" },
         params: { saveAs },
       })

@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
 body {
     // overflow-y: hidden !important;
-    background-color: #c7c7c7 !important;
+    background-color: #adadad !important;
 }
 
 [class^="marp-"] {
@@ -31,4 +33,9 @@ body {
 .input-radio:checked ~ .radio-box {
     color: white;
     background-color: #4f46e5;
+}
+
+.logo-text {
+    cursor: default;
+    font-family: 'Quicksand', sans-serif;
 }

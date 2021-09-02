@@ -1,6 +1,6 @@
 export default function LoadingComponent() {
   return (
-    <div className="h-screen flex items-center justify-center text-1xl font-mono font-semibold">
+    <div className="h-screen flex items-center justify-center text-1xl font-semibold">
       <svg
         className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
         xmlns="http://www.w3.org/2000/svg"

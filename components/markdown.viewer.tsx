@@ -19,10 +19,13 @@ export default function MarkdownViewer() {
       leaveTo="opacity-0"
     >
       <div
-        className={`fixed shadow-lg bg-gray-600 h-100 w-z-40 inset-y-0 right-0 px-4`}
+        className={`fixed shadow-lg bg-gray-800 h-100 w-z-40 inset-y-0 right-0 px-4`}
       >
         <div className="mt-20">
           <h3 className="text-lg font-bold text-white">Markdown</h3>
+          <span className=" text-md font-light text-gray-300">
+            Write your markdown based in <a className="underline" href="https://marpit.marp.app/" target="_blank">Marpit</a>
+          </span>
         </div>
         <div>
           <textarea
