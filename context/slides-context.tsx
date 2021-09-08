@@ -1,7 +1,8 @@
 import axios from "axios";
 import b64toBlob from "b64-to-blob";
 import fileDownload from "js-file-download";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState,  } from "react";
+import insertCss from 'insert-css';
 import { ISlidesContext } from "../utils/interfaces/slides-interface";
 import { SaveAsOptions } from "../utils/types/saveas-options";
 
@@ -11,11 +12,10 @@ export const SlidesProvider: React.FC = (props) => {
   const [isSlideLoaded, setIsSlideLoaded] = useState<boolean>();
   const [isSourceOpened, setIsSourceOpened] = useState<boolean>(false);
   const [markdown, setMarkdown] = useState<string>("# Hello World");
+  const [css, setCss] = useState<string[]>();
   const [saveAs, setSaveAs] = useState<SaveAsOptions>("pdf");
   const [slideSelected, setSlideSelected] = useState<number>(1);
   const [blob, setBlob] = useState<Blob>();
-
-  console.log(saveAs)
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,18 +23,14 @@ export const SlidesProvider: React.FC = (props) => {
     }, 1000);
   }, []);
 
-  useEffect(() => {
-    function SaveFileInBlob() {
-      let fileContent = [markdown];
-      setBlob(new Blob(fileContent, { type: "text/md" }));
-      console.log("blob: ", blob);
-    }
-    SaveFileInBlob();
-  }, [markdown]);
+  // Saving item inside the blob
+  // useEffect(() => {
+      // setBlob(new Blob([markdown], { type: "text/md" }));
+  // }, [markdown]);
 
   function getConvertedFile() {
+    const blob = new Blob([markdown], { type: "text/md" });
     const file = new File([blob], "slide.md");
-    let API_URL = '';
     return axios
       .post(`${process.env.API_URL}/convert-file`, file, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -52,9 +48,11 @@ export const SlidesProvider: React.FC = (props) => {
     <SlidesContext.Provider
       value={{
         markdown,
+        css,
         blob,
         getConvertedFile,
         setMarkdown,
+        setCss,
         isSlideLoaded,
         setIsSlideLoaded,
         setSaveAs,
