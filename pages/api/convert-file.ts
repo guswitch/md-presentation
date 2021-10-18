@@ -11,15 +11,15 @@ function ConvertFile(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.query.saveAs == "pdf") {
         // Generating md and pdf file
-        fse.outputFile(`./files/markdown/${randomName}.md`, req.body)
+        fse.outputFile(`./tmp/files/markdown/${randomName}.md`, req.body)
             .then(() => {
                 console.log('File created')
-                execSync(`npx marp --pdf ./files/markdown/${randomName}.md -o ./files/slide/${randomName}.pdf`);
+                execSync(`npx marp --pdf ./tmp/files/markdown/${randomName}.md -o ./tmp/files/slide/${randomName}.pdf`);
             })
             .catch((err) => console.error(err));
 
         setTimeout(() => {
-            let file = fse.readFileSync(`./files/slide/${randomName}.pdf`);
+            let file = fse.readFileSync(`./tmp/files/slide/${randomName}.pdf`);
             if (file) {
                 const base64File = Buffer.from(file).toString('base64');
                 return res.status(200).json({ file: base64File });
@@ -29,15 +29,15 @@ function ConvertFile(req: NextApiRequest, res: NextApiResponse) {
         }, 2000)
     } else {
         // Generating md and pdf file
-        fse.outputFile(`./files/markdown/${randomName}.md`, req.body)
+        fse.outputFile(`./tmp/files/markdown/${randomName}.md`, req.body)
             .then(() => {
                 console.log('File created')
-                execSync(`npx marp --pptx ./files/markdown/${randomName}.md -o ./files/pptx/${randomName}.pptx`);
+                execSync(`npx marp --pptx ./tmp/files/markdown/${randomName}.md -o ./tmp/files/pptx/${randomName}.pptx`);
             })
             .catch((err) => console.error(err));
 
         setTimeout(() => {
-            let file = fse.readFileSync(`./files/pptx/${randomName}.pptx`);
+            let file = fse.readFileSync(`./tmp/files/pptx/${randomName}.pptx`);
             if (file) {
                 const base64File = Buffer.from(file).toString('base64');
                 return res.status(200).json({ file: base64File });
